@@ -1,0 +1,10 @@
+.book {
+    height: 6rem;
+    width: 4rem;
+    background-color: grey;
+    border-radius: 1rem;
+}
+
+body  {
+    background-color: grey;
+}
