@@ -4,11 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book Collection</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/images/pngegg.png" />
+    <!-- CSS -->
     <link rel="stylesheet" href="styles.css" defer />
     <script src="script.js" defer></script>
   </head>
   <body>
-    <div class="bookshelf"></div>
+    <div class="content">
+      <h1>Book Collection</h1>
+      <div class="bookshelf"></div>
+    </div>
+    <form class="add-book-form" action="">
+      <label for="title">
+        <input type="text" placeholder="What's the title?" />
+      </label>
+      <label for="author">
+        <input type="text" placeholder="Who's the author?" />
+      </label>
+      <label for="genre">
+        <input type="text" placeholder="What genre is it?" />
+      </label>
+      <label for="pages">
+        <input type="number" placeholder="How many pages?" />
+      </label>
+      <div class="read-status--menu">
+        <label>
+          <input type="radio" name="read-status" value="not-read" /> Not read
+        </label>
+        <label>
+          <input type="radio" name="read-status" value="in-progress" /> In
+          progress
+        </label>
+        <label>
+          <input type="radio" name="read-status" value="read" /> Read
+        </label>
+      </div>
+    </form>
   </body>
 </html>
