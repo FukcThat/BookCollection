@@ -1,10 +1,36 @@
-.book {
-    height: 6rem;
-    width: 4rem;
-    background-color: grey;
-    border-radius: 1rem;
-}
+
 
 body  {
     background-color: grey;
+    color: white;
+}
+
+.bookshelf {
+    display: flex;
+    gap: 2rem
+}
+
+.book {
+    height: 16rem;
+    width: 10rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: rgb(32, 30, 30);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.title {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.author {
+    align-self: flex-start;
+}
+
+.info {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }

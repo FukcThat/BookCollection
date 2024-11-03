@@ -14,25 +14,49 @@ class Book {
     this.readStatus = readStatus;
   }
 
-  title = () => {
+  titleText = () => {
     return `${this.title}`;
   };
 
-  info = () => {
-    return `by ${this.author}, a ${this.genre} with ${this.pages} pages`;
+  authorText = () => {
+    return `by ${this.author},`;
+  };
+
+  infoText = () => {
+    return `a ${this.genre} with ${this.pages} pages`;
   };
 }
-
-// Example Books
-const BookOne = new Book("BookOne", "Some", "Romance", "9", "not read");
-const BookTwo = new Book("BookTwo", "Some", "Thriller", "13", "read");
-const BookThree = new Book("BookThree", "Some", "Novel", "92", "not read");
 
 // Add Book to Collection Array
 const addBookToCollection = (title, author, genre, pages, readStatus) => {
   const book = new Book(title, author, genre, pages, readStatus);
   bookCollection.push(book);
 };
+
+// Example Books
+const BookOne = addBookToCollection(
+  "To Kill a Mockingbird",
+  "Harper Lee",
+  "Southern Gothic Novel",
+  "336",
+  "not read"
+);
+const BookTwo = addBookToCollection(
+  "The Alchemist",
+  "Paulo Coelho",
+  "Adventure Fiction Novel",
+  "208",
+  "read"
+);
+const BookThree = addBookToCollection(
+  "1984",
+  "George Orwell",
+  "Dystopian Novel",
+  "328",
+  "read"
+);
+
+console.log(bookCollection);
 
 // Display Books
 const displayBooks = () => {
@@ -47,12 +71,19 @@ const displayBooks = () => {
 
     // Title Element - contains only Title
     let titleElement = document.createElement("div");
+    titleElement.textContent = bookCollection[i].titleText();
     titleElement.classList.add("title");
     bookElement.appendChild(titleElement);
 
+    // Author Element - contains only Author
+    let authorElement = document.createElement("div");
+    authorElement.textContent = bookCollection[i].authorText();
+    authorElement.classList.add("author");
+    bookElement.appendChild(authorElement);
+
     // Info Element - contains Author, Genre & Pages
     let infoElement = document.createElement("div");
-    infoElement.textContent = this.info();
+    infoElement.textContent = bookCollection[i].infoText();
     infoElement.classList.add("info");
     bookElement.appendChild(infoElement);
 
