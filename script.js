@@ -27,13 +27,55 @@ class Book {
   };
 }
 
+// HELPER FUNCTIONS
+
+// Create Read Status Buttons for Books
+const createReadStatusBtns = (statusMenu, statusStripe, book) => {
+  ["Read", "Reading now", "Not read"].forEach((status) => {
+    let readStatusBtn = document.createElement("button");
+    readStatusBtn.textContent = status;
+    readStatusBtn.classList.add("read-status--btn");
+    readStatusBtn.dataset.status = status;
+
+    // Set Status Color of button based on status
+    setReadStatusColor(readStatusBtn, status);
+
+    // Event Listener to change Status after submitting
+    readStatusBtn.addEventListener("click", () => {
+      book.readStatus = status;
+
+      // Set Status Color of Stripe based on status
+      setReadStatusColor(statusStripe, status);
+      statusStripe.dataset.status = status;
+    });
+    statusMenu.appendChild(readStatusBtn);
+  });
+};
+
+// Set Read Status Color
+const setReadStatusColor = (item, status) => {
+  switch (status) {
+    case "Read":
+      item.style.backgroundColor = "#96433C";
+      break;
+    case "Reading now":
+      item.style.backgroundColor = "#8C373C";
+      break;
+    case "Not read":
+      item.style.backgroundColor = "#7F3142";
+      break;
+    default:
+      item.style.backgroundColor = "#96433C";
+  }
+};
+
 // Add Book to Collection Array
 const addBookToCollection = (title, author, genre, pages, readStatus) => {
   const book = new Book(title, author, genre, pages, readStatus);
   bookCollection.push(book);
 };
 
-// Example Books
+// EXAMPLE BOOKS
 const BookOne = addBookToCollection(
   "To Kill a Mockingbird",
   "Harper Lee",
@@ -58,7 +100,7 @@ const BookThree = addBookToCollection(
 
 console.log(bookCollection);
 
-// Display Books
+// DISPLAY BOOKS FUNCTION
 const displayBooks = () => {
   bookshelf.innerHTML = "";
 
@@ -86,6 +128,26 @@ const displayBooks = () => {
     infoElement.textContent = bookCollection[i].infoText();
     infoElement.classList.add("info");
     bookElement.appendChild(infoElement);
+
+    // Read Status Element - displays Status in Color, changable on hover
+    let statusContainer = document.createElement("div");
+    statusContainer.classList.add("status-container");
+    statusContainer.setAttribute("data-status", "in-progress");
+    bookElement.appendChild(statusContainer);
+
+    // Status Stripe - color stripe indicating read status
+    let statusStripe = document.createElement("div");
+    statusStripe.classList.add("status-stripe");
+    setReadStatusColor(statusStripe, bookCollection[i].readStatus);
+    statusContainer.appendChild(statusStripe);
+
+    // Status Menu - contains buttons to change status
+    let statusMenu = document.createElement("div");
+    statusMenu.classList.add("status-menu");
+    statusContainer.appendChild(statusMenu);
+
+    // Create status buttons using the helper function
+    createReadStatusBtns(statusMenu, statusStripe, bookCollection[i]);
 
     // Append Books to Shelf
     bookshelf.appendChild(bookElement);
