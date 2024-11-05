@@ -56,16 +56,16 @@ const createReadStatusBtns = (statusMenu, statusStripe, book) => {
 const setReadStatusColor = (item, status) => {
   switch (status) {
     case "Read":
-      item.style.backgroundColor = "#96433C";
+      item.style.backgroundColor = "#F9DBBD";
       break;
     case "Reading now":
-      item.style.backgroundColor = "#8C373C";
+      item.style.backgroundColor = "#FCA17D";
       break;
     case "Not read":
-      item.style.backgroundColor = "#7F3142";
+      item.style.backgroundColor = "#E76D6D";
       break;
     default:
-      item.style.backgroundColor = "#96433C";
+      item.style.backgroundColor = "#E76D6D";
   }
 };
 
