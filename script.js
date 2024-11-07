@@ -1,8 +1,35 @@
 // Variables
 const bookshelf = document.querySelector(".bookshelf");
+const addBookBtn = document.querySelector(".add-book--btn");
+const addBookForm = document.querySelector(".add-book--form");
+const titleInput = document.querySelector(".titleInput");
+const authorInput = document.querySelector(".authorInput");
+const genreInput = document.querySelector(".genreInput");
+const pageInput = document.querySelector(".pageInput");
+const readStatusInput = document.querySelector(".read-status--menu");
 
 // Initilizations
 const bookCollection = [];
+
+// Event Listeners
+addBookBtn.addEventListener("click", () => {
+  displayForm();
+});
+
+addBookForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  if (validateFormInputs()) return;
+
+  // call addBooktoCollection function passing in inputs
+  addBookToCollection(
+    titleInput.value,
+    authorInput.value,
+    genreInput.value,
+    pageInput.value,
+    false
+  );
+});
 
 // Book Class
 class Book {
@@ -73,32 +100,54 @@ const setReadStatusColor = (item, status) => {
 const addBookToCollection = (title, author, genre, pages, readStatus) => {
   const book = new Book(title, author, genre, pages, readStatus);
   bookCollection.push(book);
+  displayBooks();
 };
 
-// EXAMPLE BOOKS
-const BookOne = addBookToCollection(
-  "To Kill a Mockingbird",
-  "Harper Lee",
-  "Southern Gothic Novel",
-  "336",
-  "not read"
-);
-const BookTwo = addBookToCollection(
-  "The Alchemist",
-  "Paulo Coelho",
-  "Adventure Fiction Novel",
-  "208",
-  "read"
-);
-const BookThree = addBookToCollection(
-  "1984",
-  "George Orwell",
-  "Dystopian Novel",
-  "328",
-  "read"
-);
+// Validate Form Inputs
+const validateFormInputs = () => {
+  let errorFound = false;
 
-console.log(bookCollection);
+  if (titleInput.validity.valueMissing) {
+    showError(titleInput, "What was the title again?");
+    errorFound = true;
+  } else if (!titleInput.validity.valid) {
+    showError(titleInput, "That doesn't seem right...");
+    errorFound = true;
+  }
+
+  if (authorInput.validity.valueMissing) {
+    showError(authorInput, "What's the author's name?");
+    errorFound = true;
+  } else if (!authorInput.validity.valid) {
+    showError(authorInput, "Are you sure that's the name?");
+    errorFound = true;
+  }
+  return errorFound;
+};
+
+// Show Error
+const showError = (input, error) => {
+  if (!input.hasAttribute("original-placeholder")) {
+    input.setAttribute("original-placeholder", input.placehodler);
+  }
+
+  input.placeholder = error;
+  input.style.setProperty("--placeholder-color", "red");
+  input.style.borderColor = "red";
+  input.value = "";
+
+  setTimeout(() => {
+    input.placehodler = input.getAttribute("original-placeholder");
+    input.style.removeProperty("borderColor");
+    input.style.removeProperty("--placeholder-color");
+  }, 5000);
+};
+
+// ADD-BOOK FORM
+const displayForm = () => {
+  addBookForm.classList.toggle("none");
+  addBookForm.classList.toggle("flex");
+};
 
 // DISPLAY BOOKS FUNCTION
 const displayBooks = () => {
@@ -155,3 +204,26 @@ const displayBooks = () => {
 };
 
 displayBooks();
+
+// EXAMPLE BOOKS
+const BookOne = addBookToCollection(
+  "To Kill a Mockingbird",
+  "Harper Lee",
+  "Southern Gothic Novel",
+  "336",
+  "not read"
+);
+const BookTwo = addBookToCollection(
+  "The Alchemist",
+  "Paulo Coelho",
+  "Adventure Fiction Novel",
+  "208",
+  "read"
+);
+const BookThree = addBookToCollection(
+  "1984",
+  "George Orwell",
+  "Dystopian Novel",
+  "328",
+  "read"
+);
