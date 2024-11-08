@@ -59,6 +59,7 @@ input::placeholder {
 }
 
 .info {
+    align-self: flex-start;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 

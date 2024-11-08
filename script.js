@@ -6,7 +6,9 @@ const titleInput = document.querySelector(".titleInput");
 const authorInput = document.querySelector(".authorInput");
 const genreInput = document.querySelector(".genreInput");
 const pageInput = document.querySelector(".pageInput");
-const readStatusInput = document.querySelector(".read-status--menu");
+const readStatusInput = document.querySelector(
+  'input[name="read-status"]:checked'
+);
 
 // Initilizations
 const bookCollection = [];
@@ -21,14 +23,19 @@ addBookForm.addEventListener("submit", (e) => {
 
   if (validateFormInputs()) return;
 
+  const selectedStatus = getCheckedReadStatus();
+
   // call addBooktoCollection function passing in inputs
   addBookToCollection(
     titleInput.value,
     authorInput.value,
     genreInput.value,
     pageInput.value,
-    false
+    selectedStatus
   );
+
+  addBookForm.reset();
+  displayForm();
 });
 
 // Book Class
@@ -49,15 +56,28 @@ class Book {
     return `by ${this.author},`;
   };
 
-  infoText = () => {
-    return `a ${this.genre} with ${this.pages} pages`;
+  genreText = () => {
+    return `a ${this.genre}`;
+  };
+
+  pagesText = () => {
+    return `with ${this.pages} pages`;
   };
 }
 
 // HELPER FUNCTIONS
 
+function getCheckedReadStatus() {
+  const checkedStatus = document.querySelector(
+    'input[name="read-status"]:checked'
+  );
+  return checkedStatus ? checkedStatus.value : "Not read";
+}
+
 // Create Read Status Buttons for Books
 const createReadStatusBtns = (statusMenu, statusStripe, book) => {
+  setReadStatusColor(statusStripe, book.readStatus);
+
   ["Read", "Reading now", "Not read"].forEach((status) => {
     let readStatusBtn = document.createElement("button");
     readStatusBtn.textContent = status;
@@ -81,6 +101,8 @@ const createReadStatusBtns = (statusMenu, statusStripe, book) => {
 
 // Set Read Status Color
 const setReadStatusColor = (item, status) => {
+  console.log("Setting color for:", status);
+
   switch (status) {
     case "Read":
       item.style.backgroundColor = "#F9DBBD";
@@ -107,6 +129,7 @@ const addBookToCollection = (title, author, genre, pages, readStatus) => {
 const validateFormInputs = () => {
   let errorFound = false;
 
+  // Title Validation
   if (titleInput.validity.valueMissing) {
     showError(titleInput, "What was the title again?");
     errorFound = true;
@@ -115,6 +138,7 @@ const validateFormInputs = () => {
     errorFound = true;
   }
 
+  // Author Validation
   if (authorInput.validity.valueMissing) {
     showError(authorInput, "What's the author's name?");
     errorFound = true;
@@ -122,6 +146,7 @@ const validateFormInputs = () => {
     showError(authorInput, "Are you sure that's the name?");
     errorFound = true;
   }
+
   return errorFound;
 };
 
@@ -160,23 +185,29 @@ const displayBooks = () => {
     bookElement.dataset.index = i;
     bookElement.classList.add("book");
 
-    // Title Element - contains only Title
+    // Title Element
     let titleElement = document.createElement("div");
     titleElement.textContent = bookCollection[i].titleText();
     titleElement.classList.add("title");
     bookElement.appendChild(titleElement);
 
-    // Author Element - contains only Author
+    // Author Element
     let authorElement = document.createElement("div");
     authorElement.textContent = bookCollection[i].authorText();
     authorElement.classList.add("author");
     bookElement.appendChild(authorElement);
 
-    // Info Element - contains Author, Genre & Pages
-    let infoElement = document.createElement("div");
-    infoElement.textContent = bookCollection[i].infoText();
-    infoElement.classList.add("info");
-    bookElement.appendChild(infoElement);
+    // Genre Element
+    let genreElement = document.createElement("div");
+    genreElement.textContent = bookCollection[i].genreText();
+    genreElement.classList.add("info");
+    bookElement.appendChild(genreElement);
+
+    // Pages Element
+    let pagesElement = document.createElement("div");
+    pagesElement.textContent = bookCollection[i].pagesText();
+    pagesElement.classList.add("info");
+    bookElement.appendChild(pagesElement);
 
     // Read Status Element - displays Status in Color, changable on hover
     let statusContainer = document.createElement("div");
@@ -211,19 +242,19 @@ const BookOne = addBookToCollection(
   "Harper Lee",
   "Southern Gothic Novel",
   "336",
-  "not read"
+  "Not read"
 );
 const BookTwo = addBookToCollection(
   "The Alchemist",
   "Paulo Coelho",
   "Adventure Fiction Novel",
   "208",
-  "read"
+  "Read"
 );
 const BookThree = addBookToCollection(
   "1984",
   "George Orwell",
   "Dystopian Novel",
   "328",
-  "read"
+  "Reading now"
 );
