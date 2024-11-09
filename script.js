@@ -168,6 +168,12 @@ const showError = (input, error) => {
   }, 5000);
 };
 
+// Delete Book
+const deleteBook = (index) => {
+  bookCollection.splice(index, 1);
+  displayBooks();
+};
+
 // ADD-BOOK FORM
 const displayForm = () => {
   addBookForm.classList.toggle("none");
@@ -184,6 +190,13 @@ const displayBooks = () => {
     let bookElement = document.createElement("div");
     bookElement.dataset.index = i;
     bookElement.classList.add("book");
+
+    // Delete Button
+    let deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "x";
+    deleteBtn.classList.add("delete-btn");
+    deleteBtn.addEventListener("click", () => deleteBook(i));
+    bookElement.appendChild(deleteBtn);
 
     // Title Element
     let titleElement = document.createElement("div");

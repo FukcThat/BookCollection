@@ -91,6 +91,18 @@ input::placeholder {
     color: white;
 }
 
+.delete-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: rgb(147, 68, 68);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
 .status-container {
     width: 100%;
     position: absolute;
@@ -140,4 +152,3 @@ input::placeholder {
     text-align: center;
     transition: background-color 0.2s;
 }
-
