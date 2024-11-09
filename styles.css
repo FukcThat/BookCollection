@@ -46,10 +46,19 @@ input::placeholder {
     gap: 1.5rem;
     position: relative;
     overflow: hidden; 
+    box-shadow: -5px -3px 10px rgb(18, 18, 18);
+    transition: 0.3s ease-in-out;
+}
+
+.book:hover {
+    scale: 1.1;
+    box-shadow: 0px -1px 8px rgb(150, 118, 70);
+    transform: translate(0rem, 0.5rem);
 }
 
 .title {
     height: 30%;
+    margin-inline: 1rem;
     font-size: 1.5rem;
     text-align: center;
 }
@@ -63,6 +72,7 @@ input::placeholder {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+
 .add-book--btn {
     cursor: pointer;
     height: 2rem;
@@ -73,14 +83,84 @@ input::placeholder {
     box-shadow: 1px 1px 2px black;
 }
 
+/* Add Book Form */
 .add-book--form {
+    position: absolute;
+    top: 50% translate(-50%);
+    left: 25%;
     width: 20rem;
     border-radius: 0.5rem;
     padding: 2rem;
-    background-color: rgba(247, 241, 235, 0.5);
+    background-color: rgba(222, 210, 209, 0.25);
+    backdrop-filter: blur(15px);
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    z-index: 2;
+}
+
+.add-book--form input[type="text"], .add-book--form input[type="number"] {
+    font-size: 1rem;
+    border-radius: 1rem;
+    padding-inline: 1rem;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.read-status--group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: 10rem;
+}
+
+.read-status--group label {
+    font-size: 1rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    color: rgb(46, 4, 4);
+    transition: 0.2s ease;
+}
+
+.read-status--group label[for="not-read"] {
+    background-color: #E76D6D; 
+}
+
+.read-status--group label[for="reading-now"] {
+    background-color: #FCA17D; 
+}
+
+.read-status--group label[for="read"] {
+    background-color: #F9DBBD; 
+}
+
+.read-status--group label:hover {
+    color: rgb(255, 255, 255)
+}
+
+.read-status--group input[type="radio"]:checked + label {
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2); 
+    transform: scale(1.05);
+}
+
+.read-status--group input[type="radio"] {
+    appearance: none;
+    position: absolute; 
 }
 
 .add-book--submit {
@@ -90,19 +170,50 @@ input::placeholder {
     background-color: rgba(86, 156, 86, 0.5);
     color: white;
 }
+/* Add Book Form */
 
+
+/* Delete Button */
 .delete-btn {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    background: transparent;
+    background-color: transparent;
+    color: rgb(150, 58, 42);
     border: none;
-    font-size: 1.2rem;
-    color: rgb(147, 68, 68);
     cursor: pointer;
-    transition: transform 0.2s ease;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.delete-btn .open-trash {
+    opacity: 1;
+    transform: rotate(0deg); 
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.delete-btn .closed-trash {
+    opacity: 0;
+    transform: rotate(-15deg); 
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    position: absolute;
+}
+
+.delete-btn:hover .open-trash {
+    opacity: 0; 
+    transform: rotate(-15deg); 
+}
+
+.delete-btn:hover .closed-trash {
+    color: rgb(163, 29, 29);
+    opacity: 1; 
+    transform: rotate(0deg); 
+}
+/* Delete Button */
+
+/* Read Status */
 .status-container {
     width: 100%;
     position: absolute;
@@ -152,3 +263,4 @@ input::placeholder {
     text-align: center;
     transition: background-color 0.2s;
 }
+/* Read Status */

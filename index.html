@@ -44,21 +44,38 @@
         <input
           type="number"
           class="pageInput"
-          pattern="[0-9]*"
+          pattern="[0-9]"
           inputmode="numeric"
           placeholder="How many pages?"
+          oninput="this.value = this.value.replace(/[^0-9]/g,'')"
         />
       </label>
-      <label>
-        <input type="radio" name="read-status" value="Not read" /> Not read
-      </label>
-      <label>
-        <input type="radio" name="read-status" value="Reading now" /> In
-        progress
-      </label>
-      <label>
-        <input type="radio" name="read-status" value="Read" /> Read
-      </label>
+      <div class="read-status--group">
+        <input
+          type="radio"
+          class="read-status--btn"
+          id="not-read"
+          name="read-status"
+          value="Not read"
+        />
+        <label for="not-read"> Not read </label>
+        <input
+          type="radio"
+          class="read-status--btn"
+          id="reading-now"
+          name="read-status"
+          value="Reading now"
+        />
+        <label for="reading-now"> In progress </label>
+        <input
+          type="radio"
+          class="read-status--btn"
+          id="read"
+          name="read-status"
+          value="Read"
+        />
+        <label for="read"> Read </label>
+      </div>
       <button type="submit" class="add-book--submit">Add to Collection</button>
     </form>
     <div class="content">

@@ -193,10 +193,19 @@ const displayBooks = () => {
 
     // Delete Button
     let deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "x";
     deleteBtn.classList.add("delete-btn");
     deleteBtn.addEventListener("click", () => deleteBook(i));
     bookElement.appendChild(deleteBtn);
+
+    const closedTrashIcon = document.createElement("span");
+    closedTrashIcon.classList.add("icon", "closed-trash");
+    closedTrashIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" /></svg>`;
+    deleteBtn.appendChild(closedTrashIcon);
+
+    const openTrashIcon = document.createElement("span");
+    openTrashIcon.classList.add("icon", "open-trash");
+    openTrashIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m20.37 8.91l-1 1.73l-12.13-7l1-1.73l3.04 1.75l1.36-.37l4.33 2.5l.37 1.37zM6 19V7h5.07L18 11v8a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2"/></svg>`;
+    deleteBtn.appendChild(openTrashIcon);
 
     // Title Element
     let titleElement = document.createElement("div");
