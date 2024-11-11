@@ -122,6 +122,32 @@ const setReadStatusColor = (item, status) => {
 const addBookToCollection = (title, author, genre, pages, readStatus) => {
   const book = new Book(title, author, genre, pages, readStatus);
   bookCollection.push(book);
+  saveBooksLocally();
+  displayBooks();
+};
+
+// Local Storage - Set Item
+const saveBooksLocally = () => {
+  localStorage.setItem("bookCollection", JSON.stringify(bookCollection));
+};
+
+// Local Storage - Get Item
+const getBooksLocally = () => {
+  const savedBooks = localStorage.getItem("bookCollection");
+  if (savedBooks) {
+    JSON.parse(savedBooks).forEach((savedBook) => {
+      const book = new Book(
+        savedBook.title,
+        savedBook.author,
+        savedBook.genre,
+        savedBook.pages,
+        savedBook.readStatus
+      );
+      bookCollection.push(book);
+    });
+  } else {
+    displayExampleBooks();
+  }
   displayBooks();
 };
 
@@ -171,6 +197,7 @@ const showError = (input, error) => {
 // Delete Book
 const deleteBook = (index) => {
   bookCollection.splice(index, 1);
+  saveBooksLocally();
   displayBooks();
 };
 
@@ -259,24 +286,28 @@ const displayBooks = () => {
 displayBooks();
 
 // EXAMPLE BOOKS
-const BookOne = addBookToCollection(
-  "To Kill a Mockingbird",
-  "Harper Lee",
-  "Southern Gothic Novel",
-  "336",
-  "Not read"
-);
-const BookTwo = addBookToCollection(
-  "The Alchemist",
-  "Paulo Coelho",
-  "Adventure Fiction Novel",
-  "208",
-  "Read"
-);
-const BookThree = addBookToCollection(
-  "1984",
-  "George Orwell",
-  "Dystopian Novel",
-  "328",
-  "Reading now"
-);
+const displayExampleBooks = () => {
+  addBookToCollection(
+    "To Kill a Mockingbird",
+    "Harper Lee",
+    "Southern Gothic Novel",
+    "336",
+    "Not read"
+  );
+  addBookToCollection(
+    "The Alchemist",
+    "Paulo Coelho",
+    "Adventure Fiction Novel",
+    "208",
+    "Read"
+  );
+  addBookToCollection(
+    "1984",
+    "George Orwell",
+    "Dystopian Novel",
+    "328",
+    "Reading now"
+  );
+};
+
+window.addEventListener("DOMContentLoaded", getBooksLocally);
