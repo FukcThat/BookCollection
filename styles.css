@@ -11,15 +11,6 @@ h1 {
     font-size: 4rem;
 }
 
-input {
-    color: black;
-    --placeholder-color: grey
-}
-
-input::placeholder {
-    color: var(--placeholder-color)
-}
-
 .header {
     display: flex;
     justify-content: space-around;
@@ -32,6 +23,7 @@ input::placeholder {
     padding: 1rem;
 }
 
+/* Book */
 .book {
     height: 16rem;
     width: 10rem;
@@ -41,6 +33,7 @@ input::placeholder {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
     gap: 1.5rem;
     position: relative;
     overflow: hidden; 
@@ -54,6 +47,10 @@ input::placeholder {
     transform: translate(0rem, 0.5rem);
 }
 
+.book:hover .info {
+    opacity: 1;
+}
+
 .title {
     height: 30%;
     margin-inline: 1rem;
@@ -62,14 +59,25 @@ input::placeholder {
 }
 
 .author {
-    align-self: flex-start;
+    align-self: center;
+    font-size: 1.15rem;
 }
 
 .info {
-    align-self: flex-start;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    height: 33%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.5rem;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+/* Book */
 
+
+/* Add Book Btn */
 .add-book--btn {
     position: fixed;
     top: 3rem;
@@ -92,6 +100,7 @@ input::placeholder {
     transform: rotate(135deg);
     color: rgb(150, 58, 42);
 }
+/* Add Book Btn */
 
 /* Add Book Form */
 .add-book--form {
@@ -105,6 +114,7 @@ input::placeholder {
     padding: 2rem;
     background-color: rgba(222, 210, 209, 0.25);
     backdrop-filter: blur(15px);
+    display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
@@ -206,6 +216,16 @@ input[type="number"] {
 }
 /* Add Book Form */
 
+/* Form Validation */
+input {
+    color: black;
+    --placeholder-color: grey
+}
+
+input::placeholder {
+    color: var(--placeholder-color)
+}
+/* Form Validation */
 
 /* Delete Button */
 .delete-btn {

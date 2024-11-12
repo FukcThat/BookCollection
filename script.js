@@ -53,15 +53,16 @@ class Book {
   };
 
   authorText = () => {
-    return `by ${this.author},`;
+    return `by ${this.author}`;
   };
 
   genreText = () => {
-    return `a ${this.genre}`;
+    return this.genre ? `a ${this.genre}` : "";
   };
 
   pagesText = () => {
-    return `with ${this.pages} pages`;
+    if (!this.pages) return "";
+    return this.pages === "1" ? `with 1 page` : `with ${this.pages} pages`;
   };
 }
 
@@ -246,17 +247,20 @@ const displayBooks = () => {
     authorElement.classList.add("author");
     bookElement.appendChild(authorElement);
 
+    // Info Div
+    let infoDiv = document.createElement("div");
+    infoDiv.classList.add("info");
+    bookElement.appendChild(infoDiv);
+
     // Genre Element
     let genreElement = document.createElement("div");
     genreElement.textContent = bookCollection[i].genreText();
-    genreElement.classList.add("info");
-    bookElement.appendChild(genreElement);
+    infoDiv.appendChild(genreElement);
 
     // Pages Element
     let pagesElement = document.createElement("div");
     pagesElement.textContent = bookCollection[i].pagesText();
-    pagesElement.classList.add("info");
-    bookElement.appendChild(pagesElement);
+    infoDiv.appendChild(pagesElement);
 
     // Read Status Element - displays Status in Color, changable on hover
     let statusContainer = document.createElement("div");
