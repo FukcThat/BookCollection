@@ -203,8 +203,8 @@ const deleteBook = (index) => {
 
 // ADD-BOOK FORM
 const displayForm = () => {
-  addBookForm.classList.toggle("none");
-  addBookForm.classList.toggle("flex");
+  addBookForm.classList.toggle("open");
+  addBookBtn.classList.toggle("close");
 };
 
 // DISPLAY BOOKS FUNCTION
